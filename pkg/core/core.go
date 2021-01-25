@@ -8,10 +8,9 @@ import (
 
 	"github.com/redhat-cop/operator-utils/pkg/util"
 	"k8s.io/apimachinery/pkg/runtime"
-	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
 
-	redhatcopv1alpha1 "github.com/redhat-cop/quay-openshift-registry-operator/pkg/apis/redhatcop/v1alpha1"
+	redhatcopv1alpha1 "github.com/redhat-cop/quay-openshift-registry-operator/api/redhatcop/v1alpha1"
 	"github.com/redhat-cop/quay-openshift-registry-operator/pkg/constants"
 	"github.com/redhat-cop/quay-openshift-registry-operator/pkg/logging"
 )
@@ -70,7 +69,7 @@ func (c *CoreComponents) GetQuayIntegration(object runtime.Object) (redhatcopv1a
 	// Find the Current Registered QuayIntegration objects
 	quayIntegrations := redhatcopv1alpha1.QuayIntegrationList{}
 
-	err := c.ReconcilerBase.GetClient().List(context.TODO(), &client.ListOptions{}, &quayIntegrations)
+	err := c.ReconcilerBase.GetClient().List(context.TODO(), &quayIntegrations)
 
 	if err != nil {
 		return redhatcopv1alpha1.QuayIntegration{}, reconcile.Result{}, err

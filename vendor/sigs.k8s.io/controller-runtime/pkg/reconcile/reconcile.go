@@ -28,7 +28,16 @@ type Result struct {
 	Requeue bool
 
 	// RequeueAfter if greater than 0, tells the Controller to requeue the reconcile key after the Duration.
+	// Implies that Requeue is true, there is no need to set Requeue to true at the same time as RequeueAfter.
 	RequeueAfter time.Duration
+}
+
+// IsZero returns true if this result is empty.
+func (r *Result) IsZero() bool {
+	if r == nil {
+		return true
+	}
+	return *r == Result{}
 }
 
 // Request contains the information necessary to reconcile a Kubernetes object.  This includes the
